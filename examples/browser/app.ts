@@ -17,14 +17,14 @@ export async function mount(root: HTMLElement) {
     input,button{font:inherit;padding:10px 14px;border:1px solid #aaa;border-radius:6px}button{cursor:pointer;background:white}
     button:disabled{opacity:.5;cursor:wait}form{display:flex;gap:12px;margin:28px 0}input{min-width:0;flex:1}
     li{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #ddd}li span{flex:1;overflow-wrap:anywhere}
-    ul{list-style:none;padding:0}pre{white-space:pre-wrap;font-size:13px;line-height:1.7}#status{min-height:24px}small{color:#626762}
+    ul{list-style:none;padding:0}pre{white-space:pre-wrap;font-size:13px;line-height:1.7}#notes-status{min-height:24px}small{color:#626762}
     @media(max-width:480px){main{margin:12px auto;padding:20px}form{flex-wrap:wrap}}
   </style><main><small>TIANA SQLITE + DRIZZLE ORM</small><h1>Notes</h1>
   <p>Add a note, mark it done, then reload to check that it is saved.</p>
-  <p id="status" role="status">Connecting…</p>
+  <p id="notes-status" role="status">Connecting…</p>
   <form><input name="title" aria-label="Note" placeholder="Write a note" required><button>Add note</button></form>
-  <ul aria-label="Notes"></ul><button id="checks">Run database checks</button><pre id="results" aria-live="polite"></pre></main>`;
-  const status = root.querySelector<HTMLElement>('#status')!;
+  <ul aria-label="Notes"></ul><button id="notes-checks">Run database checks</button><pre id="notes-results" aria-live="polite"></pre></main>`;
+  const status = root.querySelector<HTMLElement>('#notes-status')!;
   const connection = { origin: (await window.tiana.connection()).origin, auth: window.tiana.auth };
   const db = drizzle({ connection, schema: { notes } });
   await db.run(sql`CREATE TABLE IF NOT EXISTS drizzle_notes (
@@ -67,8 +67,8 @@ export async function mount(root: HTMLElement) {
       input.value = ''; await reload();
     });
   };
-  root.querySelector<HTMLButtonElement>('#checks')!.onclick = () => action(async () => {
-    const results = root.querySelector('#results')!; results.textContent = '';
+  root.querySelector<HTMLButtonElement>('#notes-checks')!.onclick = () => action(async () => {
+    const results = root.querySelector('#notes-results')!; results.textContent = '';
     await runChecks(connection, message => { results.textContent += message + '\n'; });
     results.textContent += 'All database checks passed.\n'; await reload();
   });
