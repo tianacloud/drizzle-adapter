@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "noEmit": true, "rootDir": "..", "paths": { "@tianacloud/drizzle": ["../src/index.ts"] } },
+  "include": ["../src", "../examples/browser", "types.ts"]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@tianacloud/drizzle",
+  "version": "0.1.0",
+  "description": "Drizzle ORM for Tiana SQLite in browsers and Node.js",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tianacloud/drizzle-adapter.git"
+  },
+  "homepage": "https://github.com/tianacloud/drizzle-adapter#readme",
+  "bugs": {
+    "url": "https://github.com/tianacloud/drizzle-adapter/issues"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tests/tsconfig.json --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "build:example": "node scripts/build-example.mjs",
+    "test:browser": "playwright test",
+    "check": "npm run test && npm run typecheck && npm run build:example",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "^0.45.4"
+  },
+  "dependencies": {
+    "@libsql/client": "0.18.0",
+    "@tianacloud/serverless": "0.3.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.0.0",
+    "buffer": "^6.0.3",
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.45.4",
+    "esbuild": "^0.27.0",
+    "typescript": "^5.9.0"
+  }
+}
